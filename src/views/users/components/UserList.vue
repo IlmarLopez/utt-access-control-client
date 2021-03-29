@@ -8,6 +8,12 @@
       <el-table-column prop="last_name" label="Last name"> </el-table-column>
       <el-table-column prop="username" label="Username"> </el-table-column>
       <el-table-column prop="role_name" label="Role"> </el-table-column>
+      <el-table-column label="Status">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.is_active" type="success" size="mini">Active</el-tag>
+          <el-tag v-else type="danger" size="mini">Inactive</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="Created at">
         <template slot-scope="scope">
           {{ scope.row.created_at | date }}
@@ -15,7 +21,12 @@
       </el-table-column>
       <el-table-column fixed="right" label="Actions">
         <template slot-scope="scope">
-          <!-- <el-button @click="handleClick" type="text" size="small">Detail</el-button> -->
+          <el-button
+            @click="$router.push({ name: 'userView', params: { id: scope.row.id } })"
+            type="text"
+            size="small"
+            >Detail</el-button
+          >
           <el-button @click="onEditUser({ ...scope.row })" type="text" size="small">Edit</el-button>
         </template>
       </el-table-column>
@@ -74,6 +85,7 @@ export default {
       this.users[index].last_name = data.last_name;
       this.users[index].username = data.username;
       this.users[index].role_name = data.role_name;
+      this.users[index].is_active = data.is_active;
     },
   },
 };
