@@ -5,6 +5,12 @@ import router from './router';
 import store from './store';
 import './globalComponents';
 
+// import filters
+import './filters/index';
+
+// import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import axios from './httpConfig/http';
 
 Vue.config.productionTip = false;

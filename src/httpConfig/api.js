@@ -1,4 +1,4 @@
-const debug = false;
+const debug = true;
 const rootDir = debug
   ? 'http://localhost'
   : 'http://ec2-13-56-207-140.us-west-1.compute.amazonaws.com';
