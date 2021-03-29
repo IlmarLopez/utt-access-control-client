@@ -46,6 +46,7 @@ export default {
         lastName: null,
         username: null,
         roleId: null,
+        isActive: null,
       },
       rules: {
         firstName: [
@@ -114,6 +115,7 @@ export default {
       this.user.username = data.username;
       this.user.roleId = data.role_id;
       this.user.password = '';
+      this.user.isActive = data.is_active;
     },
     onEditUser(formName) {
       this.$refs[formName].validate((valid) => {
@@ -133,6 +135,7 @@ export default {
           username: user.username,
           role_id: user.roleId,
           password: user.password,
+          is_active: user.isActive,
         },
         method: 'PUT',
       }).then((res) => {

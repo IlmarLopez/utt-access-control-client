@@ -12,7 +12,11 @@
                 <h5 class="text-capitalize mb-0">{{ user.firstName }} {{ user.lastName }}</h5>
                 <p>example@email.com</p>
                 <div>
-                  <el-button type="primary" size="small" :disabled="!canActions.edit"
+                  <el-button
+                    @click="canActions.edit ? onEditUser(user) : null"
+                    type="primary"
+                    size="small"
+                    :disabled="!canActions.edit"
                     >Edit</el-button
                   >
                   <el-button
@@ -27,7 +31,7 @@
             </div>
             <div class="ml-5">
               <table>
-                <tr>
+                <tr class="text-left">
                   <th>
                     <i class="el-icon-user mr-2"></i>
                     <span class="mr-5">Username</span>
@@ -57,19 +61,30 @@
         </el-card>
       </div>
     </div>
+    <el-drawer title="Edit user" :visible.sync="drawerEditUser" direction="rtl">
+      <UserEdit :data="selectedUser" @close="drawerEditUser = false" @update="updateUser" />
+    </el-drawer>
   </div>
 </template>
 
 <script>
+import UserEdit from './components/UserEdit.vue';
+
 export default {
   name: 'UserView',
+  components: {
+    UserEdit,
+  },
   data() {
     return {
+      selectedUser: null,
+      drawerEditUser: false,
       canActions: {
         disable: false,
         edit: false,
       },
       user: {
+        id: null,
         firstName: null,
         lastName: null,
         username: null,
@@ -85,6 +100,24 @@ export default {
     this.fetchUser(this.$route.params.id);
   },
   methods: {
+    updateUser(data) {
+      this.user.firstName = data.first_name;
+      this.user.lastName = data.last_name;
+      this.user.username = data.username;
+      this.user.roleName = data.role_name;
+      this.user.isActive = data.is_active;
+    },
+    onEditUser(data) {
+      this.selectedUser = {
+        id: data.id,
+        first_name: data.firstName,
+        last_name: data.lastName,
+        username: data.username,
+        role_id: data.roleId,
+        is_active: data.isActive,
+      };
+      this.drawerEditUser = true;
+    },
     fetchUser(id) {
       this.$http({ url: `users/${id}`, method: 'GET' })
         .then((res) => {
@@ -97,6 +130,7 @@ export default {
           this.user.createdAt = res.data.created_at;
           this.user.isActive = res.data.is_active;
           this.canActions.disable = res.data.is_active;
+          this.canActions.edit = res.data.is_active;
         })
         .catch((err) => {
           this.$message.error(`Oops, ${err}.`);
