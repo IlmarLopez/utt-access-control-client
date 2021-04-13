@@ -5,12 +5,18 @@ import router from './router';
 import store from './store';
 import './globalComponents';
 
+import './permission'; // permission control
+
 // import filters
 import './filters/index';
 
-// import 'bootstrap';
+// import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// import 'fontawesome-free'
+import '@fortawesome/fontawesome-free/css/all.css';
+
+import '@/assets/sass/main.sass';
 import axios from './httpConfig/http';
 
 Vue.config.productionTip = false;

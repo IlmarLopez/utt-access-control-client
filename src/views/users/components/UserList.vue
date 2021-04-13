@@ -1,49 +1,65 @@
 <template>
   <div>
     <div class="col-12 d-flex justify-content-end">
-      <el-button @click="drawerCreateUser = true" size="small" type="primary">Add user</el-button>
+      <el-button @click="dialogCreateUser = true" size="small" type="primary"
+        >Agregar usuario</el-button
+      >
     </div>
     <el-table :data="users" stripe style="width: 100%">
-      <el-table-column prop="first_name" label="First name"> </el-table-column>
-      <el-table-column prop="last_name" label="Last name"> </el-table-column>
-      <el-table-column prop="username" label="Username"> </el-table-column>
-      <el-table-column prop="role_name" label="Role"> </el-table-column>
-      <el-table-column label="Status">
+      <el-table-column label="Nombre">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.is_active" type="success" size="mini">Active</el-tag>
-          <el-tag v-else type="danger" size="mini">Inactive</el-tag>
+          <span class="text-capitalize">{{ scope.row.first_name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Created at">
+      <el-table-column label="Apellidos">
+        <template slot-scope="scope">
+          <span class="text-capitalize">{{ scope.row.last_name }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="username" label="Nombre de usuario"> </el-table-column>
+      <el-table-column label="Cargo">
+        <template slot-scope="scope">
+          <span class="text-uppercase">{{ scope.row.role_name }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="Estado">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.is_active" type="success" size="mini">Activo</el-tag>
+          <el-tag v-else type="danger" size="mini">Inactivo</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="Creado en">
         <template slot-scope="scope">
           {{ scope.row.created_at | date }}
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="Actions">
+      <el-table-column fixed="right" label="Acciones">
         <template slot-scope="scope">
           <el-button
             @click="$router.push({ name: 'userView', params: { id: scope.row.id } })"
             type="text"
             size="small"
-            >Detail</el-button
+            >Detalles</el-button
           >
-          <el-button @click="onEditUser({ ...scope.row })" type="text" size="small">Edit</el-button>
+          <el-button @click="onEditUser({ ...scope.row })" type="text" size="small"
+            >Editar</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
-    <el-drawer title="Edit user" :visible.sync="drawerEditUser" direction="rtl">
+    <el-drawer title="Editar usuario" :visible.sync="drawerEditUser" direction="rtl">
       <UserEdit :data="selectedUser" @close="drawerEditUser = false" @update="updateUser" />
     </el-drawer>
-    <el-drawer title="Add new user" :visible.sync="drawerCreateUser" direction="rtl">
-      <UserCreate @close="drawerCreateUser = false" @created="addUser" />
-    </el-drawer>
+    <el-dialog :visible.sync="dialogCreateUser">
+      <UserCreate @close="dialogCreateUser = false" @created="addUser" />
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import _ from 'lodash';
 import UserEdit from './UserEdit.vue';
-import UserCreate from './UserCreate.vue';
+import UserCreate from './UserCreate/Index.vue';
 
 export default {
   name: 'UserList',
@@ -55,7 +71,7 @@ export default {
     return {
       users: [],
       drawerEditUser: false,
-      drawerCreateUser: false,
+      dialogCreateUser: false,
       selectedUser: null,
     };
   },

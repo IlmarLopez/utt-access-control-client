@@ -1,0 +1,21 @@
+=element($element)
+  &__#{$element}
+    @content
+
+=modifier($modifier)
+  &--#{$modifier}
+    @content
+
+// Per default 'Extra small'
+=forTablet() // Small - sm
+  @media (min-width: 576px)
+    @content
+=forTabletLandscape() // Medium - md
+  @media (min-width: 768px)
+    @content
+=forDesktop() // Large - lg
+  @media (min-width: 992px)
+    @content
+=forDesktopLarge() // Extra large - xl
+  @media (min-width: 1200px)
+    @content

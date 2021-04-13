@@ -17,9 +17,9 @@
       <el-form-item v-if="isChangingPassword" label="Password" prop="password">
         <el-input v-model="user.password"></el-input>
       </el-form-item>
-      <el-form-item label="Role" prop="roleId">
+      <!-- <el-form-item label="Role" prop="roleId">
         <el-input v-model="user.roleId"></el-input>
-      </el-form-item>
+      </el-form-item> -->
 
       <div class="d-flex justify-content-start">
         <el-button size="small" type="primary" @click="onEditUser('form')">Edit</el-button>
@@ -45,7 +45,7 @@ export default {
         firstName: null,
         lastName: null,
         username: null,
-        roleId: null,
+        // roleId: null,
         isActive: null,
       },
       rules: {
@@ -133,7 +133,7 @@ export default {
           first_name: user.firstName,
           last_name: user.lastName,
           username: user.username,
-          role_id: user.roleId,
+          // role_id: user.roleId,
           password: user.password,
           is_active: user.isActive,
         },

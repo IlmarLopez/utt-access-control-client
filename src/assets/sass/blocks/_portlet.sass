@@ -1,0 +1,32 @@
+.portlet
+  box-shadow: 0 2px 0 rgba(90,97,105,.11), 0 4px 8px rgba(90,97,105,.12), 0 10px 10px rgba(90,97,105,.06), 0 7px 70px rgba(90,97,105,.1)
+  background-color: $bg-white
+  transition: all 5s ease-in-out
+  border-radius: .5rem
+  position: relative
+  +modifier('bg-purple')
+    background-color: #6B6BE4
+  +modifier('bg-blue-300')
+    background-color: #90cdf4
+  +modifier('bg-blue-400')
+    background-color: #63b3ed
+  +modifier('bg-blue-500')
+    background-color: #4299e1
+  +element('head')
+    display: flex
+    align-items: center
+    justify-content: space-between
+    position: relative
+    padding: 0 1.25rem
+    min-height: 50px
+    border-top-left-radius: 5px
+    border-top-right-radius: 5px
+  +element('title')
+    font-weight: 500
+    color: $text-darkest
+  +element('body')
+    overflow: auto
+    border-radius: .5rem
+    padding: 1.25rem
+    +modifier('collapsed')
+      display: none

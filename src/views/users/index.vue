@@ -1,6 +1,5 @@
 <template>
   <div>
-    Users
     <UserList />
   </div>
 </template>
@@ -19,6 +18,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>
