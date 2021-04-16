@@ -50,7 +50,7 @@
     <el-drawer title="Editar usuario" :visible.sync="drawerEditUser" direction="rtl">
       <UserEdit :data="selectedUser" @close="drawerEditUser = false" @update="updateUser" />
     </el-drawer>
-    <el-dialog :visible.sync="dialogCreateUser">
+    <el-dialog :visible.sync="dialogCreateUser" width="70%">
       <UserCreate @close="dialogCreateUser = false" @created="addUser" />
     </el-dialog>
   </div>

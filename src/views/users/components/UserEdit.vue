@@ -7,6 +7,47 @@
       <el-form-item label="Last name" prop="lastName">
         <el-input v-model="user.lastName"></el-input>
       </el-form-item>
+      <template v-if="isStudent">
+        <el-form-item label="Matrícula" prop="registrationNumber">
+          <el-input v-model.trim="user.registrationNumber"></el-input>
+        </el-form-item>
+
+        <el-form-item label="Carrera" prop="careerId">
+          <el-select
+            v-model="user.careerId"
+            placeholder="Seleccionar carrera"
+            popper-class="text-capitalize"
+          >
+            <el-option
+              v-for="career in careers"
+              :key="career.id"
+              :label="career.name"
+              :value="career.id"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="Grupo" prop="groupId">
+          <el-select
+            v-model="user.groupId"
+            :disabled="groups.length === 0"
+            placeholder="Seleccionar grupo"
+            popper-class="text-capitalize"
+          >
+            <el-option
+              v-for="group in groups"
+              :key="group.id"
+              :label="group.name"
+              :value="group.id"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </template>
+      <el-form-item label="Email" prop="email">
+        <el-input type="email" v-model.trim="user.email"></el-input>
+      </el-form-item>
       <el-form-item label="Username" prop="username">
         <el-input v-model="user.username"></el-input>
       </el-form-item>
@@ -17,9 +58,6 @@
       <el-form-item v-if="isChangingPassword" label="Password" prop="password">
         <el-input v-model="user.password"></el-input>
       </el-form-item>
-      <!-- <el-form-item label="Role" prop="roleId">
-        <el-input v-model="user.roleId"></el-input>
-      </el-form-item> -->
 
       <div class="d-flex justify-content-start">
         <el-button size="small" type="primary" @click="onEditUser('form')">Edit</el-button>
@@ -30,6 +68,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   name: 'UserEdit',
   props: {
@@ -45,8 +85,12 @@ export default {
         firstName: null,
         lastName: null,
         username: null,
-        // roleId: null,
         isActive: null,
+        password: null,
+        careerId: null,
+        groupId: null,
+        registrationNumber: null,
+        email: null,
       },
       rules: {
         firstName: [
@@ -101,11 +145,34 @@ export default {
             trigger: 'blur',
           },
         ],
+        registrationNumber: [
+          {
+            max: 10,
+            message: 'La longitud debe ser de 10',
+            trigger: 'blur',
+          },
+        ],
       },
     };
   },
+  computed: {
+    isStudent() {
+      if (this.data.role_name) {
+        return this.data.role_name.includes('estudiante');
+      }
+      return false;
+    },
+    ...mapGetters({
+      careers: 'career/list',
+    }),
+  },
   created() {
     this.setUser(this.data);
+  },
+  mounted() {
+    if (this.isStudent) {
+      this.onFetchCareers();
+    }
   },
   methods: {
     setUser(data) {
@@ -116,6 +183,10 @@ export default {
       this.user.roleId = data.role_id;
       this.user.password = '';
       this.user.isActive = data.is_active;
+      this.user.careerId = data.career_id;
+      this.user.groupId = data.group_id;
+      this.user.registrationNumber = data.registration_number;
+      this.user.email = data.email;
     },
     onEditUser(formName) {
       this.$refs[formName].validate((valid) => {
@@ -136,6 +207,10 @@ export default {
           // role_id: user.roleId,
           password: user.password,
           is_active: user.isActive,
+          career_id: user.careerId,
+          group_id: user.groupId,
+          registration_number: user.registrationNumber,
+          email: user.email,
         },
         method: 'PUT',
       }).then((res) => {
@@ -150,6 +225,12 @@ export default {
     onCancel() {
       this.$emit('close');
     },
+    onFetchCareers() {
+      this.fetchCareers();
+    },
+    ...mapActions({
+      fetchCareers: 'career/FETCH_LIST',
+    }),
   },
 };
 </script>

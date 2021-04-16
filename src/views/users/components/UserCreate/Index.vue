@@ -8,12 +8,12 @@
         </div>
         <div class="d-flex flex-wrap">
           <div class="row">
-            <div class="col-3" v-for="role in roles" :key="role.id">
+            <div class="col-12 col-sm-6 col-md-3" v-for="role in roles" :key="role.id">
               <div
                 @click="setSelectedRole(role)"
                 class="role shadow rounded d-flex justify-content-start align-items-center p-2"
               >
-                <el-avatar :size="40" src="https://empty" @error="errorHandler">
+                <el-avatar :size="40" src="https://empty">
                   <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
                 </el-avatar>
                 <div class="d-flex align-items-center">
@@ -36,23 +36,14 @@
           <h5 class="mr-1">Información del usuario</h5>
           <small>{{ currentStep }}/2</small>
         </div>
-        <Form :roleId="selectedRole.id" :isStudent="isStudent" @close="currentStep = 1" />
+        <Form
+          :roleId="selectedRole.id"
+          :isStudent="isStudent"
+          @close="currentStep = 1"
+          @created="onUserCreated"
+        />
       </div>
     </transition>
-    <!-- <div class="row">
-      <el-card v-for="role in roles" :key="role.id" shadow="always" class="col-3 mr-2 mb-2">
-        <strong class="text-capitalize">
-          {{ role.name }}
-        </strong>
-      </el-card>
-    </div> -->
-
-    <!-- <el-form-item label="Role" prop="roleId">
-      <el-select v-model="user.roleId" placeholder="Select">
-        <el-option v-for="role in roles" :key="role.id" :label="role.name" :value="role.id">
-        </el-option>
-      </el-select>
-    </el-form-item> -->
   </div>
 </template>
 
@@ -76,7 +67,6 @@ export default {
       if (this.selectedRole) {
         return this.selectedRole.name.includes('estudiante');
       }
-
       return false;
     },
     ...mapGetters({
@@ -87,6 +77,9 @@ export default {
     this.onFetchRoles();
   },
   methods: {
+    onUserCreated(data) {
+      this.$emit('created', data);
+    },
     setSelectedRole(role) {
       this.selectedRole = role;
       this.currentStep = 2;
@@ -103,7 +96,7 @@ export default {
 
 <style lang="sass" scoped>
 .role
-  min-width: 200px
+  min-width: 160px
   height: 75px
   margin: 1em
   cursor: pointer

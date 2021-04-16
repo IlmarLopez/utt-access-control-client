@@ -8,8 +8,16 @@
     </el-form-item>
 
     <template v-if="isStudent">
+      <el-form-item label="Matrícula" prop="registrationNumber">
+        <el-input v-model.trim="user.registrationNumber"></el-input>
+      </el-form-item>
+
       <el-form-item label="Carrera" prop="careerId">
-        <el-select v-model="user.careerId" placeholder="Select">
+        <el-select
+          v-model="user.careerId"
+          placeholder="Seleccionar carrera"
+          popper-class="text-capitalize"
+        >
           <el-option
             v-for="career in careers"
             :key="career.id"
@@ -20,8 +28,16 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="Matrícula" prop="registrationNumber">
-        <el-input v-model.trim="user.registrationNumber"></el-input>
+      <el-form-item label="Grupo" prop="groupId">
+        <el-select
+          v-model="user.groupId"
+          :disabled="groups.length === 0"
+          placeholder="Seleccionar grupo"
+          popper-class="text-capitalize"
+        >
+          <el-option v-for="group in groups" :key="group.id" :label="group.name" :value="group.id">
+          </el-option>
+        </el-select>
       </el-form-item>
     </template>
 
@@ -44,6 +60,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import _ from 'lodash';
 
 export default {
   name: 'UserCreateForm',
@@ -135,10 +152,25 @@ export default {
             trigger: 'blur',
           },
         ],
+        registrationNumber: [
+          {
+            max: 10,
+            message: 'La longitud debe ser de 10',
+            trigger: 'blur',
+          },
+        ],
       },
     };
   },
   computed: {
+    groups() {
+      const career = _.find(this.careers, (o) => o.id === this.user.careerId);
+
+      if (career && career.groups.length > 0) {
+        return career.groups;
+      }
+      return [];
+    },
     ...mapGetters({
       careers: 'career/list',
     }),
@@ -167,6 +199,10 @@ export default {
           username: user.username,
           role_id: this.roleId,
           password: user.password,
+          career_id: user.careerId,
+          group_id: user.groupId,
+          registration_number: user.registrationNumber,
+          email: user.email,
         },
         method: 'POST',
       }).then((res) => {

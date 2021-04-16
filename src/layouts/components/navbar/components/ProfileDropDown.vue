@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex align-items-center h-100">
     <div class="text-right text-white mr-2" style="line-height: 18px;">
-      <p class="font-semibold mb-0">{{ user.first_name }} {{ user.last_name }}</p>
+      <p class="font-semibold mb-0 text-capitalize">{{ user.first_name }} {{ user.last_name }}</p>
       <small class="text-capitalize">{{ user.role_name }}</small>
     </div>
     <el-dropdown trigger="click" size="medium">
