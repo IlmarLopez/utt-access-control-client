@@ -1,7 +1,7 @@
 <template functional>
-  <el-breadcrumb separator-class="el-icon-arrow-right" class="d-flex align-items-center">
+  <el-breadcrumb separator="/" class="mt-1">
     <el-breadcrumb-item :to="{ path: '/' }">
-      <feather-icon icon="HomeIcon" svg-classes="h-65 w-65" class="home-icon" />
+      <i class="el-icon-s-home home-icon"></i>
     </el-breadcrumb-item>
     <template v-for="(link, index) in props.route.meta.breadcrumb.slice(1, -1)">
       <el-breadcrumb-item v-if="link.url" :key="index" :to="{ path: link.url }">
@@ -26,4 +26,6 @@ export default {
 <style lang="sass" scoped>
 .home-icon
   color: $text-dodger-blue
+  // font-size: 1.5em
+  transform: scale(1.5)
 </style>

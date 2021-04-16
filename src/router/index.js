@@ -45,7 +45,7 @@ export const asyncRoutes = [
     name: 'dashboard',
     component: () => import('@/views/dashboard.vue'),
     meta: {
-      title: 'Home',
+      title: 'Inicio',
       roles: ['admin'],
       icon: 'fa-home',
       layout: 'Main',
@@ -60,6 +60,12 @@ export const asyncRoutes = [
       roles: ['admin'],
       icon: 'fa-users',
       layout: 'Main',
+      pageTitle: 'Lista de usuarios',
+      breadcrumb: [
+        { title: 'Home', url: '/' },
+        { title: 'Usuarios' },
+        { title: 'Lista', active: true },
+      ],
     },
   },
   {
@@ -71,6 +77,7 @@ export const asyncRoutes = [
       title: 'Detalles del usuario',
       roles: ['admin'],
       layout: 'Main',
+      pageTitle: 'Detalles',
       breadcrumb: [
         { title: 'Home', url: '/' },
         { title: 'Lista de usaurios', url: '/users' },

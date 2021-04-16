@@ -6,8 +6,8 @@
     />
     <div class="page-container" :class="{ 'page-container--margin-left-100': sidebar.isCollapsed }">
       <div class="container-fluid py-2">
-        <NavbarHorizontal />
-        <div v-if="$route.meta.pageTitle" class="d-flex align-items-center my-4">
+        <NavbarHorizontal class="mb-4" />
+        <div v-if="$route.meta.pageTitle" class="d-flex align-items-center mb-4">
           <div class="pr-3 border-right border-solid mr-3">
             <h4 class="mb-0">{{ $route.meta.pageTitle }}</h4>
           </div>
