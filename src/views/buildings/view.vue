@@ -59,6 +59,11 @@
                 {{ scope.row.check_in | dateTime }}
               </template>
             </el-table-column>
+            <el-table-column label="Descripción">
+              <template slot-scope="scope">
+                <span>{{ scope.row.description }}</span>
+              </template>
+            </el-table-column>
           </el-table>
         </el-card>
       </div>
