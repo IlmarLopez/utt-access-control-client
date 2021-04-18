@@ -8,12 +8,7 @@
     <el-table :data="users" stripe style="width: 100%">
       <el-table-column label="Nombre">
         <template slot-scope="scope">
-          <span class="text-capitalize">{{ scope.row.first_name }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Apellidos">
-        <template slot-scope="scope">
-          <span class="text-capitalize">{{ scope.row.last_name }}</span>
+          <span class="text-capitalize">{{ scope.row.first_name }} {{ scope.row.last_name }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="username" label="Nombre de usuario"> </el-table-column>

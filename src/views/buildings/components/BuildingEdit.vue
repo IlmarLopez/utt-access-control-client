@@ -69,7 +69,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import _ from 'lodash';
 
 export default {
   name: 'UserEdit',
@@ -162,14 +161,6 @@ export default {
         return this.data.role_name.includes('estudiante');
       }
       return false;
-    },
-    groups() {
-      const career = _.find(this.careers, (o) => o.id === this.user.careerId);
-
-      if (career && career.groups.length > 0) {
-        return career.groups;
-      }
-      return [];
     },
     ...mapGetters({
       careers: 'career/list',

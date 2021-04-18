@@ -10,7 +10,7 @@
               </div>
               <div class="text-left">
                 <h5 class="text-capitalize mb-0">{{ user.firstName }} {{ user.lastName }}</h5>
-                <p>example@email.com</p>
+                <p>{{ user.email }}</p>
                 <div>
                   <el-button
                     @click="canActions.edit ? onEditUser(user) : null"
@@ -57,6 +57,33 @@
                 </tr>
               </table>
             </div>
+            <div class="ml-5">
+              <table>
+                <tr class="text-left">
+                  <th>
+                    <i class="el-icon-bank-card mr-2"></i>
+                    <span class="mr-5">Matrícula</span>
+                  </th>
+                  <td>{{ user.registrationNumber }}</td>
+                </tr>
+                <tr class="text-left">
+                  <th>
+                    <i class="el-icon-reading mr-2"></i>
+                    <span class="mr-5">Carrera</span>
+                  </th>
+                  <td class="text-capitalize">
+                    {{ user.careerName }}
+                  </td>
+                </tr>
+                <!-- <tr class="text-left">
+                  <th>
+                    <i class="el-icon-star-off mr-2"></i>
+                    <span class="mr-5">Grupo</span>
+                  </th>
+                  <td class="text-capitalize">{{ user.group_name }}</td>
+                </tr> -->
+              </table>
+            </div>
           </div>
         </el-card>
       </div>
@@ -92,6 +119,12 @@ export default {
         roleId: null,
         createdAt: null,
         isActive: null,
+        email: null,
+        registrationNumber: null,
+        careerName: null,
+        groupName: null,
+        groupId: null,
+        careerId: null,
       },
       squareUrl: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
     };
@@ -106,6 +139,12 @@ export default {
       this.user.username = data.username;
       this.user.roleName = data.role_name;
       this.user.isActive = data.is_active;
+      this.user.email = data.email;
+      this.user.registrationNumber = data.registration_number;
+      this.user.careerName = data.career_name;
+      this.user.groupName = data.group_name;
+      this.user.groupId = data.group_id;
+      this.user.careerId = data.career_id;
     },
     onEditUser(data) {
       this.selectedUser = {
@@ -115,6 +154,11 @@ export default {
         username: data.username,
         role_id: data.roleId,
         is_active: data.isActive,
+        email: data.email,
+        registration_number: data.registrationNumber,
+        role_name: data.roleName,
+        group_id: data.groupId,
+        career_id: data.careerId,
       };
       this.drawerEditUser = true;
     },
@@ -129,6 +173,12 @@ export default {
           this.user.roleId = res.data.role_id;
           this.user.createdAt = res.data.created_at;
           this.user.isActive = res.data.is_active;
+          this.user.email = res.data.email;
+          this.user.registrationNumber = res.data.registration_number;
+          this.user.careerName = res.data.career_name;
+          this.user.groupName = res.data.group_name;
+          this.user.careerId = res.data.career_id;
+          this.user.groupId = res.data.group_id;
           this.canActions.disable = res.data.is_active;
           this.canActions.edit = res.data.is_active;
         })
