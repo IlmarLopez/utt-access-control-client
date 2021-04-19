@@ -3,7 +3,7 @@
     <div class="sidebar-inner">
       <div class="sidebar-logo">
         <router-link to="{ name: 'home' }" class="sidebar-logo__link">
-          <img src="@/assets/logo-utt.png" alt="" />
+          <img v-if="!sidebar.isCollapsed" src="@/assets/logo-utt.png" alt="" />
         </router-link>
         <div class="sidebar-logo__toggle text-white" @click="sidebarToggle">
           <span>

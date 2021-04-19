@@ -226,7 +226,7 @@ export default {
         this.$emit('update', res.data);
         this.$emit('close');
         this.$message({
-          message: 'Updated user information.',
+          message: 'Información de usuario actualizada.',
           type: 'success',
         });
       });

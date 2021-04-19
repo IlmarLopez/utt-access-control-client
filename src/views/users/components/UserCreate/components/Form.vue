@@ -90,7 +90,7 @@ export default {
         firstName: [
           {
             required: true,
-            message: 'Por favor ingrese su nombre',
+            message: 'Por favor ingrese un nombre',
             trigger: 'blur',
           },
           {
@@ -103,7 +103,7 @@ export default {
         lastName: [
           {
             required: true,
-            message: 'Ingrese sus apellidos',
+            message: 'Ingrese los apellidos',
             trigger: 'blur',
           },
           {
@@ -116,7 +116,7 @@ export default {
         username: [
           {
             required: true,
-            message: 'Ingrese su nombre de usuario',
+            message: 'Ingrese un nombre de usuario',
             trigger: 'blur',
           },
           {
@@ -129,7 +129,7 @@ export default {
         password: [
           {
             required: true,
-            message: 'Por favor ingrese su contraseña',
+            message: 'Por favor ingrese una contraseña',
             trigger: 'blur',
           },
           {
@@ -209,7 +209,7 @@ export default {
         this.$emit('created', res.data);
         this.$emit('close');
         this.$message({
-          message: 'Created user.',
+          message: 'Usuario creado.',
           type: 'success',
         });
       });

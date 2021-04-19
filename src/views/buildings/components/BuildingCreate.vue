@@ -1,37 +1,32 @@
 <template>
-  <div class="p-1">
-    <el-form :model="building" :rules="rules" ref="form">
-      <el-form-item label="Nombre" prop="name">
-        <el-input v-model.trim="building.name"></el-input>
-      </el-form-item>
-      <el-form-item label="Límite de usuarios" prop="userLimit">
-        <el-input type="number" v-model.number="building.userLimit"></el-input>
-      </el-form-item>
-      <el-form-item label="Habilitado" prop="isActive">
-        <el-switch v-model="building.isActive"> </el-switch>
-      </el-form-item>
-      <el-form-item label="Descripción" prop="description">
-        <el-input v-model="building.description"></el-input>
-      </el-form-item>
-      <div class="d-flex justify-content-start">
-        <el-button size="small" type="primary" @click="onEditBuilding('form')">Edit</el-button>
-        <el-button size="small" @click="onCancel">Cancel</el-button>
-      </div>
-    </el-form>
-  </div>
+  <el-form :model="building" :rules="rules" ref="form" label-width="150px">
+    <el-form-item label="Nombre" prop="name">
+      <el-input v-model.trim="building.name"></el-input>
+    </el-form-item>
+    <el-form-item label="Límite de usuarios" prop="userLimit">
+      <el-input type="number" v-model.number="building.userLimit"></el-input>
+    </el-form-item>
+    <el-form-item label="Descripción" prop="description">
+      <el-input
+        show-word-limit
+        maxlength="150"
+        type="textarea"
+        v-model="building.description"
+      ></el-input>
+    </el-form-item>
+
+    <div class="d-flex justify-content-start">
+      <el-button size="small" type="primary" @click="onCreateBuilding('form')">Add</el-button>
+      <el-button size="small" @click="onCancel">Cancel</el-button>
+    </div>
+  </el-form>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 
 export default {
-  name: 'BuildingEdit',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
-  },
+  name: 'BuildingCreate',
   data() {
     return {
       building: {
@@ -77,34 +72,21 @@ export default {
       },
     };
   },
-  created() {
-    this.setBuilding(this.data);
-  },
   methods: {
-    setBuilding(data) {
-      this.building.id = data.id;
-      this.building.name = data.name;
-      this.building.description = data.description;
-      this.building.userLimit = data.user_limit;
-      this.building.isActive = data.is_active;
-    },
-    onEditBuilding(formName) {
+    onCreateBuilding(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.editBuilding({
-            id: this.building.id,
+          this.createBuilding({
             data: {
               name: this.building.name,
               description: this.building.description,
               user_limit: this.building.userLimit,
-              is_active: this.building.isActive,
             },
-            method: 'PUT',
           }).then((res) => {
-            this.$emit('update', res.data);
+            this.$emit('created', res.data);
             this.$emit('close');
             this.$message({
-              message: 'Información del edificio actualizada.',
+              message: 'Edificio creado.',
               type: 'success',
             });
           });
@@ -117,7 +99,7 @@ export default {
       this.$emit('close');
     },
     ...mapActions({
-      editBuilding: 'building/FETCH_UPDATE',
+      createBuilding: 'building/FETCH_CREATE',
     }),
   },
 };
