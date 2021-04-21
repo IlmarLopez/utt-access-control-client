@@ -30,7 +30,7 @@ export const constantRoutes = [
   },
   {
     path: '/',
-    redirect: '/home',
+    redirect: '/inicio',
     hidden: true,
   },
 ];
@@ -41,12 +41,12 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    path: '/home',
-    name: 'dashboard',
+    path: '/inicio',
+    name: 'home',
     component: () => import('@/views/dashboard.vue'),
     meta: {
       title: 'Inicio',
-      roles: ['admin'],
+      roles: ['admin', 'guardia'],
       icon: 'fa-home',
       layout: 'Main',
     },
@@ -91,7 +91,7 @@ export const asyncRoutes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/buildings/index.vue'),
     meta: {
       title: 'Estado',
-      roles: ['admin'],
+      roles: ['admin', 'guardia'],
       layout: 'Main',
       icon: 'el-icon-office-building',
       pageTitle: 'Estado',
@@ -109,13 +109,46 @@ export const asyncRoutes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/buildings/view.vue'),
     meta: {
       title: 'Detalles del edificio',
-      roles: ['admin'],
+      roles: ['admin', 'guardia'],
       layout: 'Main',
       pageTitle: 'Detalles',
       breadcrumb: [
         { title: 'Inicio', url: '/' },
         { title: 'Edificios', url: '/edificios' },
         { title: 'Estado del edificio', active: true },
+      ],
+    },
+  },
+  {
+    path: '/control-de-accesos',
+    name: 'accessControl',
+    component: () => import(/* webpackChunkName: "about" */ '../views/access-control/index.vue'),
+    meta: {
+      title: 'Control de accesos',
+      roles: ['admin', 'guardia'],
+      layout: 'Main',
+      icon: 'el-icon-notebook-2',
+      pageTitle: 'Control de accesos',
+      breadcrumb: [
+        { title: 'Inicio', url: '/' },
+        { title: 'Edificios', url: '/edificios' },
+        { title: 'Control de accesos', active: true },
+      ],
+    },
+  },
+  {
+    path: '/inicio',
+    name: 'home',
+    component: () => import(/* webpackChunkName: "about" */ '../views/student/index.vue'),
+    meta: {
+      title: 'Inicio',
+      roles: ['estudiante'],
+      layout: 'Main',
+      icon: 'fa-home',
+      pageTitle: 'Solicitudes de acceso',
+      breadcrumb: [
+        { title: 'Inicio', url: '/' },
+        { title: 'Estado actual', active: true },
       ],
     },
   },

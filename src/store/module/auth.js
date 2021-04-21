@@ -24,7 +24,6 @@ export default {
     DESTROY_SESSION: (state) => {
       localStorage.removeItem('access_token'); // if the request fails, remove any possible user token if possible
       state.token = '';
-      Vue.prototype.$ability.update([]);
       state.roles = [];
       state.authenticatedUser = null;
     },

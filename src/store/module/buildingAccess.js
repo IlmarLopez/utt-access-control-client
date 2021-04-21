@@ -60,7 +60,7 @@ export default {
         state.list.push(id.toString());
         Vue.set(state.entities, id, data);
       }
-      Message.success('Successfully completed');
+      Message.success('Completado con éxito');
     },
     FETCH_CREATE_ERROR: (_, error) => {
       Message.error(`'Status code' ${error.response.status}`);
@@ -77,7 +77,7 @@ export default {
         Vue.set(state.list, listIndex, id);
       }
 
-      Message.success('Successfully completed');
+      // Message.success('Completado con éxito');
     },
     FETCH_UPDATE_ERROR: (_, error) => {
       Message.error(`'Status code' ${error.response.status}`);
@@ -90,7 +90,7 @@ export default {
       }
 
       Vue.delete(state.entities, id.toString());
-      Message.success('Successfully completed');
+      Message.success('Completado con éxito');
     },
     FETCH_DELETE_ERROR: (_, error) => {
       Message.error(`'Status code' ${error.response.status}`);

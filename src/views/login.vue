@@ -5,7 +5,7 @@
         <div class="portlet">
           <div class="portlet__body">
             <div class="mt-3 mb-2 d-flex justify-content-center">
-              <img src="" width="150" height="72" alt="" />
+              <img src="@/assets/logo-utt.png" width="200" height="95" alt="" />
             </div>
             <h4 class="portlet__head-title">Sign in</h4>
             <form class="mb-4" @submit.prevent="onLogin">
@@ -20,7 +20,8 @@
               <transition name="fade">
                 <div v-if="status === 'error'" class="form-group">
                   <small class="text-danger is-error">
-                    * Please check your username and password. Fields are case sensitive.
+                    * Por favor verifique su nombre de usuario y contraseña. Los campos distinguen
+                    entre mayúsculas y minúsculas.
                   </small>
                 </div>
               </transition>
