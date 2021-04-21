@@ -139,10 +139,10 @@ export const asyncRoutes = [
   {
     path: '/inicio',
     name: 'home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/student/index.vue'),
+    component: () => import(/* webpackChunkName: "about" */ '../views/access-request/index.vue'),
     meta: {
       title: 'Inicio',
-      roles: ['estudiante'],
+      roles: ['estudiante', 'visitante', 'docente', 'personal'],
       layout: 'Main',
       icon: 'fa-home',
       pageTitle: 'Solicitudes de acceso',
